@@ -1,0 +1,11 @@
+version: '3.8' # Specify a Docker Compose file version
+
+services:
+  database:
+    image: postgres:14-alpine 
+    environment:
+      POSTGRES_USER: my_user
+      POSTGRES_PASSWORD: my_password
+      POSTGRES_DB: my_database 
+    ports:
+      - "5432:5432" 
