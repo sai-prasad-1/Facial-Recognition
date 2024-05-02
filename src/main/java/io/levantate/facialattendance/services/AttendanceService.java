@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AttendanceService {
@@ -18,22 +19,23 @@ public class AttendanceService {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
-    @Autowired
-    private UserRepository userRepository;
 
     private static final ZoneId IST_ZONE = ZoneId.of("Asia/Kolkata"); // IST ZoneId
 
     // Get all attendance records for a user
-    public List<Attendance> getAllAttendanceByUser(User user) {
-        return attendanceRepository.findByUser(user);
+    public List<Attendance> getAllAttendanceByUser(Long id) 
+    {
+        List<Attendance> attendanceList = attendanceRepository.findByUserId(id);
+        return attendanceList;
+        
     }
 
-    // Record attendance (simplified)
-    public Attendance recordAttendance(String name) {
-        User user = userRepository.findByName(name);
+    public Attendance recordAttendance(Long id) {
         Attendance attendance = new Attendance();
-        attendance.setUser(user);
+        attendance.setUserId(id);;
         attendance.setTimestamp(LocalDateTime.now(IST_ZONE));
         return attendanceRepository.save(attendance);
-    }   
+
+    }
+
 }

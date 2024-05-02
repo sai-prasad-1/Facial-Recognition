@@ -8,5 +8,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
-    public List<Attendance> findByUser(User user);
+    public List<Attendance> findByUserId(Long userId);
 }
